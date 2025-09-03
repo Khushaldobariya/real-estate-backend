@@ -1,0 +1,47 @@
+const express = require('express');
+const cors = require('cors');
+
+require('dotenv').config();
+
+// Import database connection
+const { testConnection } = require('./config/db');
+
+// Import routes
+
+const userRoutes = require('./routes/userRouter');
+const subscriberRoutes = require('./routes/subscriberRoutes');
+
+// Import middleware
+const { errorHandler } = require('./middleware/errorMiddleware');
+
+// Initialize express app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+
+app.use('/api/users', userRoutes);
+app.use('/api/subscribers', subscriberRoutes);
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Real Estate API' });
+});
+
+// Error handling middleware
+app.use(errorHandler);
+
+// Set port and start server
+console.log('process.env.PORT', process.env.PORT)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, async () => {
+  console.log(`Server running on port ${PORT}`);
+  
+  // Test database connection
+  await testConnection();
+});
