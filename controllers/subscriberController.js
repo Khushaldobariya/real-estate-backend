@@ -16,6 +16,7 @@ const subscriberController = {
   subscribeEmail: async (req, res, next) => {
     try {
       const { email } = req.body;
+      console.log('email', email)
 
       
       if (!email) {
@@ -29,6 +30,7 @@ const subscriberController = {
       }
       
       const existingSubscriber = await Subscriber.findByEmail(email);
+      console.log('existingSubscriber', existingSubscriber) 
       
       if (existingSubscriber) {
              
@@ -40,6 +42,7 @@ const subscriberController = {
       
 
       const newSubscriber = await Subscriber.create(email);
+      console.log('newSubscriber', newSubscriber)
       if(newSubscriber) {
         // Send SMS notification to the subscriber
         try {

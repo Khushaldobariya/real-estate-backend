@@ -10,7 +10,11 @@ dotenv.config();
  * @returns {Promise<void>}
  */
 const sendSMS = async (email) => {
+  console.log('sendSMS email', email)
   try {
+    console.log('process.env.SMTP_USER', process.env.SMTP_USER)
+    console.log('process.env.SMTP_PASS', process.env.SMTP_PASS)
+    console.log('process.env.SMTP_FROM', process.env.SMTP_FROM)
 
     const transporter = nodemailer.createTransport({
     service: "gmail",
