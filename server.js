@@ -31,26 +31,24 @@ app.options("*", cors());
 app.use(express.urlencoded({ extended: true }));
 
 
-// Routes
+
 
 app.use('/api/users', userRoutes);
 app.use('/api/subscribers', subscriberRoutes);
 
-// Root route
+
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Real Estate API' });
 });
 
-// Error handling middleware
+
 app.use(errorHandler);
 
-// Set port and start server
+
 console.log('process.env.PORT', process.env.PORT)
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, async () => {
+app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
-  
-  // Test database connection
   await testConnection();
 });
