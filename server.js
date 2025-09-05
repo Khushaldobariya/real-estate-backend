@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 
-require('dotenv').config();
+require('dotenv').config({
+  path: ['.env.local', '.env']
+});
 
 // Import database connection
 const { testConnection } = require('./config/db');
@@ -45,7 +47,7 @@ app.use(errorHandler);
 
 
 console.log('process.env.PORT', process.env.PORT)
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
