@@ -69,14 +69,7 @@ const subscriberController = {
    * @param {Response} res
    * @param {NextFunction} next -
    */
-  getSubscribers: async (req, res, next) => {
-    try {
-      const subscribers = await Subscriber.findAll();
-      res.status(200).json(subscribers);
-    } catch (error) {
-      next(error);
-    }
-  }
+
 };
 
 module.exports = subscriberController;

@@ -36,7 +36,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', userRoutes);
 app.use('/api/subscribers', subscriberRoutes);
 
-
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Real Estate API' });
 });
