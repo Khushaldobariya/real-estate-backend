@@ -20,13 +20,14 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 
 // Initialize express app
 const app = express();
-
+console.log('process.env.PORT', process.env.PORT)
+const PORT = process.env.PORT || 4000;
 const sslOptions = {
   key: fs.readFileSync('/etc/letsencrypt/live/api.gharhotoaisa.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/api.gharhotoaisa.com/fullchain.pem')
 };
 
-https.createServer(sslOptions, app).listen(443, "0.0.0.0", async () => {
+https.createServer(sslOptions, app).listen(PORT, "0.0.0.0", async () => {
   console.log(`✅ HTTPS Server running on port 443`);
   await testConnection();
 });
@@ -56,8 +57,7 @@ app.get('/', (req, res) => {
 app.use(errorHandler);
 
 
-console.log('process.env.PORT', process.env.PORT)
-const PORT = process.env.PORT || 5000;
+
 
 app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
