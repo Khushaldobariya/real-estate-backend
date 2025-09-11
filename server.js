@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config({
   path: ['.env.local', '.env']
 });
-c
+
 // Import database connection
 const { testConnection } = require('./config/db');
 
