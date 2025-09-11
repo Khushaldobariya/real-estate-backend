@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const https = require('https');
 
 require('dotenv').config({
   path: ['.env.local', '.env']
@@ -19,7 +21,15 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 // Initialize express app
 const app = express();
 
-// Middleware
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/api.gharhotoaisa.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/api.gharhotoaisa.com/fullchain.pem')
+};
+
+https.createServer(sslOptions, app).listen(443, "0.0.0.0", async () => {
+  console.log(`✅ HTTPS Server running on port 443`);
+  await testConnection();
+});
 
 app.use(cors({
   origin: "*",
