@@ -1,7 +1,7 @@
-const mysql = require("mysql2");
-const dotenv = require("dotenv");
+ const mysql = require("mysql2");
+ const dotenv = require("dotenv");
 
-dotenv.config({ path: ".env" });
+ dotenv.config({ path: ".env.local" });
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -31,3 +31,8 @@ module.exports = {
   pool: promisePool,
   testConnection,
 };
+
+
+
+
+
