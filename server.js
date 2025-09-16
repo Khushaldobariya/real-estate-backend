@@ -6,12 +6,14 @@ require('dotenv').config({
 });
 
 
-const { testConnection } = require('./config/db');
+const { testConnection, sequelize } = require('./config/db');
 
 
 
 const userRoutes = require('./routes/userRouter');
 const subscriberRoutes = require('./routes/subscriberRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 
 const { errorHandler } = require('./middleware/errorMiddleware');
@@ -32,6 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/subscribers', subscriberRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Real Estate API' });
@@ -43,5 +47,13 @@ app.use(errorHandler);
 app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server running on port ${PORT}`);
   await testConnection();
+  
+  // Sync Sequelize models with database
+  try {
+    await sequelize.sync();
+    console.log('Database models synchronized');
+  } catch (error) {
+    console.error('Failed to sync database models:', error);
+  }
 });
 

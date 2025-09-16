@@ -1,8 +1,10 @@
- const mysql = require("mysql2");
- const dotenv = require("dotenv");
+const mysql = require("mysql2");
+const dotenv = require("dotenv");
+const { Sequelize } = require("sequelize");
 
- dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env.local" });
 
+// MySQL connection pool
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -14,11 +16,23 @@ const pool = mysql.createPool({
 });
 const promisePool = pool.promise();
 
+// Sequelize connection
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    logging: false,
+  }
+);
 
 // Test the connection
 const testConnection = async () => {
   try {
     const [rows] = await promisePool.query("SELECT 1");
+    await sequelize.authenticate();
     console.log("✅ Database connection successful");
     return true;
   } catch (error) {
@@ -29,6 +43,7 @@ const testConnection = async () => {
 
 module.exports = {
   pool: promisePool,
+  sequelize,
   testConnection,
 };
 
