@@ -20,7 +20,7 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 console.log('process.env.PORT', process.env.PORT)
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors({
   origin: "*",
