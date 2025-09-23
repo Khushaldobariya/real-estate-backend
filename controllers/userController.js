@@ -71,7 +71,7 @@ const userController = {
 
             // Send SMS notification
             try {
-                await sendSMSContactFrom(email, name, projectLocation, phone);
+                await sendSMSContactFrom(email, name, projectLocation, phone , message);
             } catch (smsError) {
                 console.error('SMS notification failed:', smsError);
                 // Continue execution even if SMS fails
