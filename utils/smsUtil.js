@@ -28,7 +28,10 @@ const transporter = nodemailer.createTransport({
     // Define email message
     const message = {
       from: process.env.SMTP_FROM || 'noreply@example.com',
-      to: process.env.SMTP_FROM,
+      to: [
+    process.env.SMTP_FROM, 
+    'sadiqrashmigroup@gmail.com'
+  ],
       subject: 'New Subscription Alert',
       text: `New Subscription Alert\n\nSubscriber Details:\nEmail: ${email}\n\nA new subscriber has joined your mailing list. You may want to welcome them or add them to your subscriber management system.\n\nThis is an automated notification from your subscription system.`,
       html: `
@@ -75,7 +78,10 @@ const sendSMSContactFrom = async (email ,name ,projectLocation ,mobile ,messageD
     // Define email message
     const message = {
       from: process.env.SMTP_FROM || 'noreply@example.com',
-      to: process.env.SMTP_FROM,
+   to: [
+    process.env.SMTP_FROM, 
+    'sadiqrashmigroup@gmail.com'
+  ],
       subject: 'Contact Form Submission Received',
       text: `New Contact Form Submission\n\nContact Details:\nName: ${name}\nEmail: ${email}\nMobile: ${mobile}\nProperty Location: ${projectLocation}\n\nA new inquiry has been received from the contact form. Please review and follow up with the client as soon as possible.\n\nThis is an automated message from your website's contact form system.`,
       html: `
